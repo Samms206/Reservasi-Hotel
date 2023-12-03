@@ -18,7 +18,7 @@ public class koneksi {
     Connection koneksi;
     public static Connection Koneksi() {
         try {
-            Connection koneksi = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/db_test", "root", "");
+            Connection koneksi = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/db_reservasi_hotel", "root", "");
             return koneksi;
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(null, "lost connection : "+e);
