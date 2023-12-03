@@ -112,7 +112,8 @@ public class Login extends javax.swing.JFrame {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Berhasil Login", "Login", JOptionPane.INFORMATION_MESSAGE);
-                    
+                    Dashboard db = new Dashboard();
+                    db.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Email atau Password Salah!!!", "Login", JOptionPane.ERROR_MESSAGE);
                 }
