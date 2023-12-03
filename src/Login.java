@@ -1,3 +1,12 @@
+
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,9 +19,11 @@
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    private ResultSet rs;
+    private Statement st;
+    private PreparedStatement ps;
+    Connection conn = koneksi.Koneksi();
+    
     public Login() {
         initComponents();
     }
@@ -29,13 +40,13 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        eUsername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        ePassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.CardLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -47,23 +58,54 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
         jLabel2.setText("Username");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 470, 40));
+        jPanel1.add(eUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 470, 40));
 
         jLabel3.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
         jLabel3.setText("Password");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 470, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
         jButton1.setText("Login");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 100, 40));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 100, 40));
+        jPanel1.add(ePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 470, 40));
 
-        getContentPane().add(jPanel1, "card2");
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 521, 333));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String username, password;
+        username = eUsername.getText();
+        password = ePassword.getText();
+        if (username.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(this, "Inputan kosong!");
+        }else{
+            try {
+                String query = "SELECT * FROM user WHERE username=? AND password=?";
+                ps = conn.prepareStatement(query);
+                ps.setString(1, username);
+                ps.setString(2, password);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Berhasil Login", "Login", JOptionPane.INFORMATION_MESSAGE);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(this, "Email atau Password Salah!!!", "Login", JOptionPane.ERROR_MESSAGE);
+                }
+                } catch (HeadlessException | SQLException e) {
+                    JOptionPane.showMessageDialog(this, "fail " + e.getMessage());
+                }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,12 +143,12 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField ePassword;
+    private javax.swing.JTextField eUsername;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
