@@ -46,7 +46,7 @@ public class Register extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         ePassword2 = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        eAlamat = new javax.swing.JPasswordField();
+        eAlamat = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,25 +108,29 @@ public class Register extends javax.swing.JFrame {
             || eAlamat.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
         }else{
-            try {
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(this, "NIM atau Email sudah terdaftar!");
-                } else {
-                    String query = "INSERT INTO user"
-                        + "(username,password,alamat) "
-                        + "VALUES (?, ? ,?)";
-                    ps = conn.prepareStatement(query);
-                    ps.setString(1, eUsername.getText());
-                    ps.setString(2, ePassword.getText());
-                    ps.setString(3, eAlamat.getText());
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Berhasil");
-                    Login lg = new Login();
-                    lg.setVisible(true);
-                    this.dispose();
+            if (!ePassword.getText().equals(ePassword2.getText())) {
+                JOptionPane.showMessageDialog(this, "Password Tidak sama");
+            }else{
+                try {
+                    if (rs.next()) {
+                        JOptionPane.showMessageDialog(this, "NIM atau Email sudah terdaftar!");
+                    } else {
+                        String query = "INSERT INTO user"
+                            + "(username,password,alamat) "
+                            + "VALUES (?, ? ,?)";
+                        ps = conn.prepareStatement(query);
+                        ps.setString(1, eUsername.getText());
+                        ps.setString(2, ePassword.getText());
+                        ps.setString(3, eAlamat.getText());
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Berhasil");
+                        Login lg = new Login();
+                        lg.setVisible(true);
+                        this.dispose();
+                    }
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
                 }
-            }catch(SQLException e){
-                JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -167,7 +171,7 @@ public class Register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField eAlamat;
+    private javax.swing.JTextField eAlamat;
     private javax.swing.JPasswordField ePassword;
     private javax.swing.JPasswordField ePassword2;
     private javax.swing.JTextField eUsername;
