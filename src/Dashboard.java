@@ -415,6 +415,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 100, 40));
 
         jButton11.setText("Delete");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 100, 40));
 
         jTabbedPane1.addTab("Data Kamar", jPanel3);
@@ -615,6 +620,27 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        if (dtNomorKamar.getText().equals("") 
+            || dt_harga.getText().equals("") 
+            || dt_kasur.getSelectedItem().equals("Pilih")
+            || dt_tipe.getSelectedItem().equals("Pilih")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            try {
+                String query = "DELETE FROM kamar "
+                    + "WHERE nomor_kamar=?";
+                prepared = conn.prepareStatement(query);
+                prepared.setString(1, dtNomorKamar.getText());
+                prepared.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil Menghapus Kamar!");
+                bersih_kamar();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "
