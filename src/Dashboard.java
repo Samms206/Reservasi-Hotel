@@ -37,6 +37,7 @@ public class Dashboard extends javax.swing.JFrame {
         DateToday();
         tampil_kamar();
         list_nomorKamar();
+        tampil_karyawan();
     }
 
     void DateToday(){
@@ -148,7 +149,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        eUsername2 = new javax.swing.JTextField();
+        eAlamatkry = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -157,9 +158,9 @@ public class Dashboard extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        eUsername4 = new javax.swing.JTextField();
-        ePassword2 = new javax.swing.JPasswordField();
-        ePassword3 = new javax.swing.JPasswordField();
+        eNamakry = new javax.swing.JTextField();
+        eConfPasskry = new javax.swing.JPasswordField();
+        ePasskry = new javax.swing.JPasswordField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -474,7 +475,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Nama");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-        jPanel4.add(eUsername2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 250, 40));
+        jPanel4.add(eAlamatkry, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 250, 40));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
@@ -517,9 +518,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton6.setText("Delete");
         jPanel4.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 100, 40));
-        jPanel4.add(eUsername4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
-        jPanel4.add(ePassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
-        jPanel4.add(ePassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
+        jPanel4.add(eNamakry, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
+        jPanel4.add(eConfPasskry, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
+        jPanel4.add(ePasskry, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
 
         jTabbedPane1.addTab("Data Karyawan", jPanel4);
 
@@ -576,6 +577,28 @@ public class Dashboard extends javax.swing.JFrame {
               res.getString("kasur"),
               res.getString("harga"),
               res.getString("status")
+            };
+              model1.addRow(data);
+          }
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    void tampil_karyawan(){
+        Object[] kolom = {
+            "ID", "Username", "Password", "Alamat"
+        };
+        model1 = new DefaultTableModel(null, kolom);
+        tabel_kamar.setModel(model1);
+        try {
+          stat = conn.createStatement();
+          res = stat.executeQuery("SELECT * FROM karyawan");
+          while (res.next()) {
+            Object[] data = {
+              res.getString("id"),
+              res.getString("username"),
+              res.getString("password"),
+              res.getString("alamat")
             };
               model1.addRow(data);
           }
@@ -764,23 +787,23 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField dt_harga;
     private javax.swing.JComboBox<String> dt_kasur;
     private javax.swing.JComboBox<String> dt_tipe;
+    private javax.swing.JTextField eAlamatkry;
+    private javax.swing.JPasswordField eConfPasskry;
     private javax.swing.JTextField eCustomer;
     private javax.swing.JTextField eCustomer1;
     private javax.swing.JTextField eCustomer2;
     private javax.swing.JTextField eEmail;
     private javax.swing.JTextField eHarga;
     private javax.swing.JComboBox<String> eKasur;
+    private javax.swing.JTextField eNamakry;
     private javax.swing.JTextField eNohp;
     private javax.swing.JTextField eNohp1;
     private javax.swing.JComboBox<String> eNomorKamar;
-    private javax.swing.JPasswordField ePassword2;
-    private javax.swing.JPasswordField ePassword3;
+    private javax.swing.JPasswordField ePasskry;
     private javax.swing.JTextField eTglHariini;
     private javax.swing.JTextField eTglHariini1;
     private javax.swing.JTextField eTglHariini2;
     private javax.swing.JComboBox<String> eTipe;
-    private javax.swing.JTextField eUsername2;
-    private javax.swing.JTextField eUsername4;
     private javax.swing.JRadioButton epria;
     private javax.swing.JRadioButton ewanita;
     private javax.swing.JButton jButton1;
