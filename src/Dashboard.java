@@ -515,6 +515,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
         jButton4.setText("Simpan");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 100, 40));
 
         jButton5.setText("Update");
@@ -766,6 +771,41 @@ public class Dashboard extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    void bersih_karyawan(){
+        eNamakry.setText("");
+        ePasskry.setText("");
+        eConfPasskry.setText("");
+        eAlamatkry.setText("");
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if (eNamakry.getText().equals("") 
+            || ePasskry.getText().equals("") 
+            || eConfPasskry.getText().equals("") 
+            || eAlamatkry.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            if (!ePasskry.getText().equals(eConfPasskry.getText())) {
+                JOptionPane.showMessageDialog(this, "Password Tidak sama");
+            }else{
+                try {
+                    String query = "INSERT INTO user"
+                        + "(username,password,alamat) "
+                        + "VALUES (?, ? ,?)";
+                    prepared = conn.prepareStatement(query);
+                    prepared.setString(1, eNamakry.getText());
+                    prepared.setString(2, ePasskry.getText());
+                    prepared.setString(3, eAlamatkry.getText());
+                    prepared.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Berhasil");
+                    bersih_karyawan();
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "

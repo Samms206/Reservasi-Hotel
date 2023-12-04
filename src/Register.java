@@ -93,7 +93,7 @@ public class Register extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    if (eUsername.getText().equals("") 
+        if (eUsername.getText().equals("") 
             || ePassword.getText().equals("") 
             || ePassword2.getText().equals("") 
             || eAlamat.getText().equals("")) {
@@ -103,22 +103,18 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Password Tidak sama");
             }else{
                 try {
-                    if (rs.next()) {
-                        JOptionPane.showMessageDialog(this, "NIM atau Email sudah terdaftar!");
-                    } else {
-                        String query = "INSERT INTO user"
-                            + "(username,password,alamat) "
-                            + "VALUES (?, ? ,?)";
-                        ps = conn.prepareStatement(query);
-                        ps.setString(1, eUsername.getText());
-                        ps.setString(2, ePassword.getText());
-                        ps.setString(3, eAlamat.getText());
-                        ps.executeUpdate();
-                        JOptionPane.showMessageDialog(this, "Berhasil");
-                        Login lg = new Login();
-                        lg.setVisible(true);
-                        this.dispose();
-                    }
+                    String query = "INSERT INTO user"
+                        + "(username,password,alamat) "
+                        + "VALUES (?, ? ,?)";
+                    ps = conn.prepareStatement(query);
+                    ps.setString(1, eUsername.getText());
+                    ps.setString(2, ePassword.getText());
+                    ps.setString(3, eAlamat.getText());
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Berhasil");
+                    Login lg = new Login();
+                    lg.setVisible(true);
+                    this.dispose();
                 }catch(SQLException e){
                     JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
                 }
