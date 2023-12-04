@@ -419,8 +419,7 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+    void clear(){
         eCustomer.setText("");
         eNohp.setText("");
         eEmail.setText("");
@@ -429,6 +428,10 @@ public class Dashboard extends javax.swing.JFrame {
         eKasur.setSelectedIndex(0);
         eTipe.setSelectedIndex(0);
         eHarga.setText("");
+    }
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -457,6 +460,7 @@ public class Dashboard extends javax.swing.JFrame {
                 prepared.executeUpdate();
                 update_statatus(eNomorKamar.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Berhasil Check In");
+                clear();
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
             }
