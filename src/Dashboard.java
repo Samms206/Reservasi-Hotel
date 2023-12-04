@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headeres in Project Properties.
@@ -44,8 +45,9 @@ public class Dashboard extends javax.swing.JFrame {
         LocalDate currentDate = LocalDate.now();
         // Format the date using DateTimeFormatter
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedTodayDate = currentDate.format(formatter);
-        eTglHariini.setText(formattedTodayDate);
+        String today = currentDate.format(formatter);
+        eTglHariini.setText(today);
+        eTglCheckOutx.setText(today);
     }
     
     void list_nomorKamar(){
@@ -128,7 +130,7 @@ public class Dashboard extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jLabel27 = new javax.swing.JLabel();
-        eTglHariini2 = new javax.swing.JTextField();
+        eTglCheckOutx = new javax.swing.JTextField();
         eCustomer2 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -366,9 +368,9 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel27.setText("Tanggal Chek Out");
         jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
-        eTglHariini2.setEditable(false);
-        eTglHariini2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jPanel7.add(eTglHariini2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 250, 40));
+        eTglCheckOutx.setEditable(false);
+        eTglCheckOutx.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel7.add(eTglCheckOutx, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 250, 40));
         jPanel7.add(eCustomer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
 
         jLabel25.setBackground(new java.awt.Color(255, 255, 255));
@@ -429,6 +431,11 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabel_kamar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_kamarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabel_kamar);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 420, 190));
@@ -735,6 +742,16 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         bersih_kamar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tabel_kamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kamarMouseClicked
+        // TODO add your handling code here:
+        int row = tabel_kamar.getSelectedRow();
+        dtNomorKamar.setText(model1.getValueAt(row, 0).toString());
+        dt_tipe.setSelectedItem(model1.getValueAt(row, 1).toString());
+        dt_kasur.setSelectedItem(model1.getValueAt(row, 2).toString());
+        dt_harga.setText(model1.getValueAt(row, 3).toString());
+        
+    }//GEN-LAST:event_tabel_kamarMouseClicked
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "
@@ -800,9 +817,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField eNohp1;
     private javax.swing.JComboBox<String> eNomorKamar;
     private javax.swing.JPasswordField ePasskry;
+    private javax.swing.JTextField eTglCheckOutx;
     private javax.swing.JTextField eTglHariini;
     private javax.swing.JTextField eTglHariini1;
-    private javax.swing.JTextField eTglHariini2;
     private javax.swing.JComboBox<String> eTipe;
     private javax.swing.JRadioButton epria;
     private javax.swing.JRadioButton ewanita;
