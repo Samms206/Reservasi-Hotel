@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headeres in Project Properties.
@@ -27,10 +28,12 @@ public class Dashboard extends javax.swing.JFrame {
     private Statement stat;
     private PreparedStatement prepared;
     Connection conn = koneksi.Koneksi();
+    DefaultTableModel model1 = new DefaultTableModel();
     
     public Dashboard() {
         initComponents();
         DateToday();
+        tampil_kamar();
     }
 
     void DateToday(){
@@ -104,7 +107,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         dt_harga = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabel_kamar = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -380,7 +383,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
         jPanel3.add(dt_harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_kamar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -391,7 +394,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabel_kamar);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 420, 190));
 
@@ -516,6 +519,30 @@ public class Dashboard extends javax.swing.JFrame {
         eKasur.setSelectedIndex(0);
         eTipe.setSelectedIndex(0);
         eHarga.setText("");
+    }
+    
+    void tampil_kamar(){
+        Object[] kolom = {
+            "Nomor", "Tipe", "Kasur", "Harga", "Status"
+        };
+        model1 = new DefaultTableModel(null, kolom);
+        tabel_kamar.setModel(model1);
+        try {
+          stat = conn.createStatement();
+          res = stat.executeQuery("SELECT * FROM kamar");
+          while (res.next()) {
+            Object[] data = {
+              res.getString("nomor_kamar"),
+              res.getString("tipe"),
+              res.getString("kasur"),
+              res.getString("harga"),
+              res.getString("status")
+            };
+              model1.addRow(data);
+          }
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -761,9 +788,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTable tabel_kamar;
     // End of variables declaration//GEN-END:variables
 }
