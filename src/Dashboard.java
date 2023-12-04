@@ -531,6 +531,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel4.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 100, 40));
 
         jButton6.setText("Delete");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 100, 40));
         jPanel4.add(eNamakry, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
         jPanel4.add(eConfPasskry, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
@@ -763,13 +768,39 @@ public class Dashboard extends javax.swing.JFrame {
     private void tabel_kryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kryMouseClicked
         // TODO add your handling code here:
         int row = tabel_kry.getSelectedRow();
-        eNamakry.setText(model2.getValueAt(row, 0).toString());
-        ePasskry.setText(model2.getValueAt(row, 1).toString());
-        eAlamatkry.setText(model2.getValueAt(row, 2).toString());
+        idkaryawan = model2.getValueAt(row, 0).toString();
+        eNamakry.setText(model2.getValueAt(row, 1).toString());
+        ePasskry.setText(model2.getValueAt(row, 2).toString());
+        eAlamatkry.setText(model2.getValueAt(row, 3).toString());
     }//GEN-LAST:event_tabel_kryMouseClicked
-
+    String idkaryawan = "";
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        if (eNamakry.getText().equals("") 
+            || ePasskry.getText().equals("") 
+            || eConfPasskry.getText().equals("") 
+            || eAlamatkry.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            if (!ePasskry.getText().equals(eConfPasskry.getText())) {
+                JOptionPane.showMessageDialog(this, "Password Tidak sama");
+            }else{
+                try {
+                    String query = "UPDATE karyawan "
+                        + "SET username=?,password=?,alamat=? "
+                        + "WHERE id =" +idkaryawan;
+                    prepared = conn.prepareStatement(query);
+                    prepared.setString(1, eNamakry.getText());
+                    prepared.setString(2, ePasskry.getText());
+                    prepared.setString(3, eAlamatkry.getText());
+                    prepared.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Berhasil");
+                    bersih_karyawan();
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     void bersih_karyawan(){
@@ -790,7 +821,7 @@ public class Dashboard extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Password Tidak sama");
             }else{
                 try {
-                    String query = "INSERT INTO user"
+                    String query = "INSERT INTO karyawan"
                         + "(username,password,alamat) "
                         + "VALUES (?, ? ,?)";
                     prepared = conn.prepareStatement(query);
@@ -806,6 +837,30 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        if (eNamakry.getText().equals("") 
+            || ePasskry.getText().equals("") 
+            || eConfPasskry.getText().equals("") 
+            || eAlamatkry.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            if (!ePasskry.getText().equals(eConfPasskry.getText())) {
+                JOptionPane.showMessageDialog(this, "Password Tidak sama");
+            }else{
+                try {
+                    String query = "DELETE FROM karyawan "
+                        + "WHERE id =" +idkaryawan;
+                    prepared.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Berhasil");
+                    bersih_karyawan();
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "

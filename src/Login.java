@@ -96,7 +96,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Inputan kosong!");
         }else{
             try {
-                String query = "SELECT * FROM user WHERE username=? AND password=?";
+                String query = "SELECT * FROM karyawan WHERE username=? AND password=?";
                 ps = conn.prepareStatement(query);
                 ps.setString(1, username);
                 ps.setString(2, password);

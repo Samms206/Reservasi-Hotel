@@ -103,7 +103,7 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Password Tidak sama");
             }else{
                 try {
-                    String query = "INSERT INTO user"
+                    String query = "INSERT INTO karyawan"
                         + "(username,password,alamat) "
                         + "VALUES (?, ? ,?)";
                     ps = conn.prepareStatement(query);
