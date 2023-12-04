@@ -12,16 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/*
- * To change this license header, choose License Headeres in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author macbookpro
- */
 public class Dashboard extends javax.swing.JFrame {
 
     /**
