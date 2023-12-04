@@ -493,6 +493,11 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabel_kry.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabel_kryMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tabel_kry);
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 420, 180));
@@ -513,6 +518,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 100, 40));
 
         jButton5.setText("Update");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 100, 40));
 
         jButton6.setText("Delete");
@@ -744,6 +754,18 @@ public class Dashboard extends javax.swing.JFrame {
         dt_harga.setText(model1.getValueAt(row, 3).toString());
         
     }//GEN-LAST:event_tabel_kamarMouseClicked
+
+    private void tabel_kryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabel_kryMouseClicked
+        // TODO add your handling code here:
+        int row = tabel_kry.getSelectedRow();
+        eNamakry.setText(model2.getValueAt(row, 0).toString());
+        ePasskry.setText(model2.getValueAt(row, 1).toString());
+        eAlamatkry.setText(model2.getValueAt(row, 2).toString());
+    }//GEN-LAST:event_tabel_kryMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "
