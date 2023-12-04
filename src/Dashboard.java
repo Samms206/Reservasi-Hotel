@@ -32,6 +32,7 @@ public class Dashboard extends javax.swing.JFrame {
     private PreparedStatement prepared;
     Connection conn = koneksi.Koneksi();
     DefaultTableModel model1 = new DefaultTableModel();
+    DefaultTableModel model2 = new DefaultTableModel();
     
     public Dashboard() {
         initComponents();
@@ -154,7 +155,7 @@ public class Dashboard extends javax.swing.JFrame {
         eAlamatkry = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabel_kry = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -490,7 +491,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel7.setText("Alamat");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabel_kry.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -501,7 +502,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabel_kry);
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 420, 180));
 
@@ -595,8 +596,8 @@ public class Dashboard extends javax.swing.JFrame {
         Object[] kolom = {
             "ID", "Username", "Password", "Alamat"
         };
-        model1 = new DefaultTableModel(null, kolom);
-        tabel_kamar.setModel(model1);
+        model2 = new DefaultTableModel(null, kolom);
+        tabel_kry.setModel(model2);
         try {
           stat = conn.createStatement();
           res = stat.executeQuery("SELECT * FROM karyawan");
@@ -607,7 +608,7 @@ public class Dashboard extends javax.swing.JFrame {
               res.getString("password"),
               res.getString("alamat")
             };
-              model1.addRow(data);
+              model2.addRow(data);
           }
         } catch(SQLException e) {
             System.out.println(e.getMessage());
@@ -872,9 +873,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable tabel_kamar;
+    private javax.swing.JTable tabel_kry;
     // End of variables declaration//GEN-END:variables
 }
