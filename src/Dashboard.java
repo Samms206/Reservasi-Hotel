@@ -553,6 +553,12 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    void bersih_kamar(){
+        dtNomorKamar.setText("");
+        dt_harga.setText("");
+        dt_kasur.setSelectedIndex(0);
+        dt_tipe.setSelectedIndex(0);
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (dtNomorKamar.getText().equals("") 
@@ -572,6 +578,7 @@ public class Dashboard extends javax.swing.JFrame {
                 prepared.setString(4, dt_harga.getText());
                 prepared.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Berhasil Menambahkan Kamar!");
+                bersih_kamar();
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
             }
