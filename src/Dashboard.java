@@ -407,6 +407,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 100, 40));
 
         jButton3.setText("Update");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 100, 40));
 
         jButton11.setText("Delete");
@@ -584,6 +589,32 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if (dtNomorKamar.getText().equals("") 
+            || dt_harga.getText().equals("") 
+            || dt_kasur.getSelectedItem().equals("Pilih")
+            || dt_tipe.getSelectedItem().equals("Pilih")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            try {
+                String query = "UPDATE kamar "
+                    + "SET tipe=?,kasur=?,harga=? "
+                    + "WHERE nomor_kamar=?";
+                prepared = conn.prepareStatement(query);
+                prepared.setString(1, dt_tipe.getSelectedItem().toString());
+                prepared.setString(2, dt_kasur.getSelectedItem().toString());
+                prepared.setString(3, dt_harga.getText());
+                prepared.setString(4, dtNomorKamar.getText());
+                prepared.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil Mengupdate Kamar!");
+                bersih_kamar();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "
