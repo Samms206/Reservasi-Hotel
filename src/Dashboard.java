@@ -79,23 +79,36 @@ public class Dashboard extends javax.swing.JFrame {
         eKasur = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        eCustomer1 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        eNohp1 = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        eTglHariini1 = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        jLabel27 = new javax.swing.JLabel();
+        eTglHariini2 = new javax.swing.JTextField();
+        eCustomer2 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        eUsername = new javax.swing.JTextField();
+        dtNomorKamar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        dt_tipe = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        dt_kasur = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        eUsername1 = new javax.swing.JTextField();
+        dt_harga = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         eUsername2 = new javax.swing.JTextField();
@@ -253,6 +266,46 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(0, 255, 0));
         jPanel7.setPreferredSize(new java.awt.Dimension(579, 400));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel7.add(eCustomer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 40));
+
+        jLabel23.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel23.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Nama Customer");
+        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        jLabel24.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel24.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Nomor HP");
+        jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jPanel7.add(eNohp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 250, 40));
+
+        jLabel26.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel26.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Tanggal Chek In");
+        jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+
+        eTglHariini1.setEditable(false);
+        eTglHariini1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel7.add(eTglHariini1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 250, 40));
+
+        jButton9.setText("Clear");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 120, 40));
+
+        jButton10.setText("Check Out");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 120, 40));
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -267,7 +320,24 @@ public class Dashboard extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(jTable4);
 
-        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 580, 310));
+        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 560, 130));
+
+        jLabel27.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel27.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Tanggal Chek Out");
+        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
+
+        eTglHariini2.setEditable(false);
+        eTglHariini2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel7.add(eTglHariini2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 250, 40));
+        jPanel7.add(eCustomer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
+
+        jLabel25.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel25.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Nomor Kamar");
+        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel.jpeg"))); // NOI18N
         jLabel11.setPreferredSize(new java.awt.Dimension(579, 400));
@@ -283,7 +353,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nomor Kamar");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-        jPanel3.add(eUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
+        jPanel3.add(dtNomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
@@ -291,8 +361,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel3.setText("Tipe kamar");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "AC", "Non AC" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
+        dt_tipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "AC", "Non AC" }));
+        jPanel3.add(dt_tipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
@@ -300,15 +370,15 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel4.setText("Kasur");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Singel", "Double", "Triple" }));
-        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 40));
+        dt_kasur.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Singel", "Double", "Triple" }));
+        jPanel3.add(dt_kasur, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 40));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Harga");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
-        jPanel3.add(eUsername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
+        jPanel3.add(dt_harga, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -323,16 +393,24 @@ public class Dashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 420, 180));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 420, 190));
 
-        jButton1.setText("Delete");
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 100, 40));
+        jButton1.setText("Clear");
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 100, 40));
 
         jButton2.setText("Simpan");
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 100, 40));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 100, 40));
 
         jButton3.setText("Update");
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 100, 40));
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 100, 40));
+
+        jButton11.setText("Delete");
+        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 100, 40));
 
         jTabbedPane1.addTab("Data Kamar", jPanel3);
 
@@ -466,6 +544,39 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (dtNomorKamar.getText().equals("") 
+            || dt_harga.getText().equals("") 
+            || dt_kasur.getSelectedItem().equals("Pilih")
+            || dt_tipe.getSelectedItem().equals("Pilih")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            try {
+                String query = "INSERT INTO kamar"
+                    + "(nomor_kamar,tipe,kasur,harga) "
+                    + "VALUES (?, ? ,?, ?)";
+                prepared = conn.prepareStatement(query);
+                prepared.setString(1, dtNomorKamar.getText());
+                prepared.setString(2, dt_tipe.getSelectedItem().toString());
+                prepared.setString(3, dt_kasur.getSelectedItem().toString());
+                prepared.setString(4, dt_harga.getText());
+                prepared.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil Menambahkan Kamar!");
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET statatus = 'Booked' "
@@ -514,23 +625,32 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField dtNomorKamar;
+    private javax.swing.JTextField dt_harga;
+    private javax.swing.JComboBox<String> dt_kasur;
+    private javax.swing.JComboBox<String> dt_tipe;
     private javax.swing.JTextField eCustomer;
+    private javax.swing.JTextField eCustomer1;
+    private javax.swing.JTextField eCustomer2;
     private javax.swing.JTextField eEmail;
     private javax.swing.JTextField eHarga;
     private javax.swing.JComboBox<String> eKasur;
     private javax.swing.JTextField eNohp;
+    private javax.swing.JTextField eNohp1;
     private javax.swing.JComboBox<String> eNomorKamar;
     private javax.swing.JPasswordField ePassword2;
     private javax.swing.JPasswordField ePassword3;
     private javax.swing.JTextField eTglHariini;
+    private javax.swing.JTextField eTglHariini1;
+    private javax.swing.JTextField eTglHariini2;
     private javax.swing.JComboBox<String> eTipe;
-    private javax.swing.JTextField eUsername;
-    private javax.swing.JTextField eUsername1;
     private javax.swing.JTextField eUsername2;
     private javax.swing.JTextField eUsername4;
     private javax.swing.JRadioButton epria;
     private javax.swing.JRadioButton ewanita;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -538,8 +658,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -555,6 +674,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
