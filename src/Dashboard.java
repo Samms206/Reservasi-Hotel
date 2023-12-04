@@ -1,3 +1,7 @@
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,8 +19,16 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        DateToday();
     }
 
+    void DateToday(){
+        LocalDate currentDate = LocalDate.now();
+        // Format the date using DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedTodayDate = currentDate.format(formatter);
+        eTglHariini.setText(formattedTodayDate);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,9 +38,39 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        eCustomer = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        eNohp = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        eEmail = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        ewanita = new javax.swing.JRadioButton();
+        epria = new javax.swing.JRadioButton();
+        eTglHariini = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        eNokamar = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        eKasur = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        eTipe = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        eHarga = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         eUsername = new javax.swing.JTextField();
@@ -51,13 +93,15 @@ public class Dashboard extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        eUsername3 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         eUsername4 = new javax.swing.JTextField();
-        eUsername5 = new javax.swing.JTextField();
+        ePassword2 = new javax.swing.JPasswordField();
+        ePassword3 = new javax.swing.JPasswordField();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,11 +112,145 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(579, 400));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel21.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("RESERVASI KAMAR HOTEL");
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 580, -1));
+
+        jLabel22.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("SISTEM INFORMASI");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 580, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel.jpeg"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(579, 400));
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
 
         jTabbedPane1.addTab("Dashboard", jPanel2);
+
+        jPanel6.setBackground(new java.awt.Color(0, 255, 0));
+        jPanel6.setPreferredSize(new java.awt.Dimension(579, 400));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Nama Customer");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel6.add(eCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
+
+        jLabel13.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel13.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Nomor HP");
+        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        jPanel6.add(eNohp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 40));
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Email");
+        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel6.add(eEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 250, 40));
+
+        jLabel15.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel15.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Gender");
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        buttonGroup1.add(ewanita);
+        ewanita.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        ewanita.setForeground(new java.awt.Color(255, 255, 255));
+        ewanita.setText("Wanita");
+        jPanel6.add(ewanita, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+
+        buttonGroup1.add(epria);
+        epria.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        epria.setForeground(new java.awt.Color(255, 255, 255));
+        epria.setText("Pria");
+        jPanel6.add(epria, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+
+        eTglHariini.setEditable(false);
+        eTglHariini.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel6.add(eTglHariini, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 250, 40));
+
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Tanggal Chek In");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Nomor Kamar");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+        jPanel6.add(eNokamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 250, 40));
+
+        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Kasur");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
+
+        eKasur.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Singel", "Double", "Triple" }));
+        jPanel6.add(eKasur, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 260, 40));
+
+        jLabel19.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel19.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Tipe kamar");
+        jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+
+        eTipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "AC", "Non AC" }));
+        jPanel6.add(eTipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 260, 40));
+
+        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel20.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Harga");
+        jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+        jPanel6.add(eHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 260, 40));
+
+        jButton7.setText("Check In");
+        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 310, 130, 40));
+
+        jButton8.setText("Clear");
+        jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 130, 40));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel.jpeg"))); // NOI18N
+        jLabel10.setPreferredSize(new java.awt.Dimension(579, 400));
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
+
+        jTabbedPane1.addTab("Check In", jPanel6);
+
+        jPanel7.setBackground(new java.awt.Color(0, 255, 0));
+        jPanel7.setPreferredSize(new java.awt.Dimension(579, 400));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
+
+        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 580, 310));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel.jpeg"))); // NOI18N
+        jLabel11.setPreferredSize(new java.awt.Dimension(579, 400));
+        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 400));
+
+        jTabbedPane1.addTab("Check Out", jPanel7);
 
         jPanel3.setBackground(new java.awt.Color(102, 0, 102));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -177,7 +355,6 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Konfirmasi Password");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
-        jPanel4.add(eUsername3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
 
         jButton4.setText("Simpan");
         jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 100, 40));
@@ -188,12 +365,29 @@ public class Dashboard extends javax.swing.JFrame {
         jButton6.setText("Delete");
         jPanel4.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 100, 40));
         jPanel4.add(eUsername4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
-        jPanel4.add(eUsername5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
+        jPanel4.add(ePassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 260, 40));
+        jPanel4.add(ePassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 260, 40));
 
         jTabbedPane1.addTab("Data Karyawan", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(102, 0, 102));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 580, 300));
+
         jTabbedPane1.addTab("History Reservasi", jPanel5);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 600, 400));
@@ -238,22 +432,48 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField eCustomer;
+    private javax.swing.JTextField eEmail;
+    private javax.swing.JTextField eHarga;
+    private javax.swing.JComboBox<String> eKasur;
+    private javax.swing.JTextField eNohp;
+    private javax.swing.JTextField eNokamar;
+    private javax.swing.JPasswordField ePassword2;
+    private javax.swing.JPasswordField ePassword3;
+    private javax.swing.JTextField eTglHariini;
+    private javax.swing.JComboBox<String> eTipe;
     private javax.swing.JTextField eUsername;
     private javax.swing.JTextField eUsername1;
     private javax.swing.JTextField eUsername2;
-    private javax.swing.JTextField eUsername3;
     private javax.swing.JTextField eUsername4;
-    private javax.swing.JTextField eUsername5;
+    private javax.swing.JRadioButton epria;
+    private javax.swing.JRadioButton ewanita;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -265,10 +485,16 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 }
