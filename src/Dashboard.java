@@ -25,6 +25,7 @@ public class Dashboard extends javax.swing.JFrame {
     DefaultTableModel model1 = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
     DefaultTableModel model3 = new DefaultTableModel();
+    String id_trans = "0";
     
     public Dashboard() {
         initComponents();
@@ -47,7 +48,7 @@ public class Dashboard extends javax.swing.JFrame {
     void list_nomorKamar(){
         try {
             stat = conn.createStatement();
-            res = stat.executeQuery("SELECT nomor_kamar FROM kamar WHERE kamar.status IS NULL");
+            res = stat.executeQuery("SELECT nomor_kamar FROM kamar WHERE status IS NULL");
             while (res.next()) {
                 String nomorKamar = res.getString("nomor_kamar");
                 eNomorKamar.addItem(nomorKamar);
@@ -80,7 +81,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     private void tampil_checkin(){
         Object[] kolom = {
-            "Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut", "Kasur", "Tipe", "Harga"
+            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut", "Kasur", "Tipe", "Harga"
         };
         model3 = new DefaultTableModel(null, kolom);
         tbl_checkin.setModel(model3);
@@ -89,6 +90,7 @@ public class Dashboard extends javax.swing.JFrame {
           res = stat.executeQuery("SELECT * FROM customer");
           while (res.next()) {
             Object[] data = {
+              res.getString("id"),
               res.getString("nama"),
               res.getString("nokamar"),
               res.getString("email"),
@@ -693,6 +695,9 @@ public class Dashboard extends javax.swing.JFrame {
                 update_statatus(eNomorKamar.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Berhasil Check In");
                 clear();
+                list_nomorKamar();
+                tampil_checkin();
+                tampil_kamar();
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(this, "Eror "+e.getMessage());
             }
@@ -704,6 +709,7 @@ public class Dashboard extends javax.swing.JFrame {
         eNamack.setText("");
         eNohpck.setText("");
         eTglchekinck.setText("");
+        id_trans = "0";
     }
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
@@ -712,6 +718,37 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        if (eNamack.getText().equals("") 
+            || eNohpck.getText().equals("") 
+            || eTglchekinck.getText().equals("") 
+            || eTglck.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Form Inputan masih kosong");
+        }else{
+            try {
+                String query = "UPDATE kamar "
+                    + "SET status = NULL "
+                    + "WHERE nomor_kamar="+eNokamarck.getText();
+                prepared = conn.prepareStatement(query);
+                prepared.executeUpdate();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, "Eror 1 "+e.getMessage());
+            }
+            try {
+                System.out.println(eTglck.getText() +" | "+id_trans);
+                String sql = "UPDATE customer SET tgl_checkout=? WHERE id=?";
+                prepared = conn.prepareStatement(sql);
+                prepared.setString(1, eTglck.getText());
+                prepared.setString(2, id_trans);
+                prepared.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil Chekout Kamar!");
+                clear_checkout();
+                list_nomorKamar();
+                tampil_kamar();
+                tampil_checkin();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(this, "Eror 2 "+e.getMessage());
+            }
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     void bersih_kamar(){
@@ -910,9 +947,10 @@ public class Dashboard extends javax.swing.JFrame {
         try {
             int row = tbl_checkin.getSelectedRow();
             TableModel model = tbl_checkin.getModel();
-            eNokamarck.setText(model.getValueAt(row, 0).toString());
+            id_trans = (model.getValueAt(row, 0).toString());
             eNamack.setText(model.getValueAt(row, 1).toString());
-            eNohpck.setText(model.getValueAt(row, 3).toString());
+            eNokamarck.setText(model.getValueAt(row, 2).toString());
+            eNohpck.setText(model.getValueAt(row, 4).toString());
             eTglchekinck.setText(model.getValueAt(row, 5).toString());
         } catch (Exception e) {
         }
