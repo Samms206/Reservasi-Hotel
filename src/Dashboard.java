@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 
 public class Dashboard extends javax.swing.JFrame {
@@ -69,11 +68,11 @@ public class Dashboard extends javax.swing.JFrame {
                 String tipe = res.getString("tipe");
                 String kasur = res.getString("kasur");
                 eHarga.setText(String.valueOf(harga));
-                eTipe.setSelectedItem(tipe);
-                eKasur.setSelectedItem(kasur);
+                eTipe.setText(tipe);
+                eKasur.setText(kasur);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -103,12 +102,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         eNomorKamar = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
-        eTipe = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         eHarga = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        eKasur = new javax.swing.JComboBox<>();
+        eKasur = new javax.swing.JTextField();
+        eTipe = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         eCustomer1 = new javax.swing.JTextField();
@@ -260,14 +259,13 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel19.setText("Tipe kamar");
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
 
-        eTipe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "AC", "Non AC" }));
-        jPanel6.add(eTipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 260, 40));
-
         jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Harga");
         jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        eHarga.setEditable(false);
         jPanel6.add(eHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 260, 40));
 
         jButton7.setText("Check In");
@@ -286,8 +284,11 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 130, 40));
 
-        eKasur.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Singel", "Double", "Triple" }));
-        jPanel6.add(eKasur, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 260, 40));
+        eKasur.setEditable(false);
+        jPanel6.add(eKasur, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 250, 40));
+
+        eTipe.setEditable(false);
+        jPanel6.add(eTipe, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 250, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hotel.jpeg"))); // NOI18N
         jLabel10.setPreferredSize(new java.awt.Dimension(579, 400));
@@ -575,8 +576,8 @@ public class Dashboard extends javax.swing.JFrame {
         eEmail.setText("");
         buttonGroup1.clearSelection();
         eNomorKamar.setSelectedIndex(0);
-        eKasur.setSelectedIndex(0);
-        eTipe.setSelectedIndex(0);
+        eKasur.setText("");
+        eTipe.setText("");
         eHarga.setText("");
     }
     
@@ -636,7 +637,7 @@ public class Dashboard extends javax.swing.JFrame {
         if (ewanita.isSelected()) {
             gender = "Wanita";
         }
-        if (eCustomer.getText().equals("") || eNohp.getText().equals("") || eEmail.getText().equals("") || eHarga.getText().equals("") || eNomorKamar.getSelectedItem().toString().equals("Pilih") || eKasur.getSelectedItem().toString().equals("Pilih") || eTipe.getSelectedItem().toString().equals("Pilih")) {
+        if (eCustomer.getText().equals("") || eNohp.getText().equals("") || eEmail.getText().equals("") || eHarga.getText().equals("") || eNomorKamar.getSelectedItem().toString().equals("Pilih") || eKasur.getText().equals("Pilih") || eTipe.getText().equals("Pilih")) {
             JOptionPane.showMessageDialog(this, "Form Input Masih Kosong");
         }else{
             try {
@@ -650,8 +651,8 @@ public class Dashboard extends javax.swing.JFrame {
                 prepared.setString(4, gender);
                 prepared.setString(5, eTglHariini.getText());
                 prepared.setString(6, eNomorKamar.getSelectedItem().toString());
-                prepared.setString(7, eKasur.getSelectedItem().toString());
-                prepared.setString(8, eTipe.getSelectedItem().toString());
+                prepared.setString(7, eKasur.getText());
+                prepared.setString(8, eTipe.getText());
                 prepared.setString(9, eHarga.getText());
                 prepared.executeUpdate();
                 update_statatus(eNomorKamar.getSelectedItem().toString());
@@ -920,7 +921,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField eCustomer2;
     private javax.swing.JTextField eEmail;
     private javax.swing.JTextField eHarga;
-    private javax.swing.JComboBox<String> eKasur;
+    private javax.swing.JTextField eKasur;
     private javax.swing.JTextField eNamakry;
     private javax.swing.JTextField eNohp;
     private javax.swing.JTextField eNohp1;
@@ -929,7 +930,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField eTglCheckOutx;
     private javax.swing.JTextField eTglHariini;
     private javax.swing.JTextField eTglHariini1;
-    private javax.swing.JComboBox<String> eTipe;
+    private javax.swing.JTextField eTipe;
     private javax.swing.JRadioButton epria;
     private javax.swing.JRadioButton ewanita;
     private javax.swing.JButton jButton1;
