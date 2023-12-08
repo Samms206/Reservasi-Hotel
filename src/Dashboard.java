@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 
 public class Dashboard extends javax.swing.JFrame {
@@ -23,6 +24,7 @@ public class Dashboard extends javax.swing.JFrame {
     Connection conn = koneksi.Koneksi();
     DefaultTableModel model1 = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
+    DefaultTableModel model3 = new DefaultTableModel();
     
     public Dashboard() {
         initComponents();
@@ -30,6 +32,7 @@ public class Dashboard extends javax.swing.JFrame {
         tampil_kamar();
         list_nomorKamar();
         tampil_karyawan();
+        tampil_checkin();
     }
 
     void DateToday(){
@@ -38,13 +41,13 @@ public class Dashboard extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String today = currentDate.format(formatter);
         eTglHariini.setText(today);
-        eTglCheckOutx.setText(today);
+        eTglck.setText(today);
     }
     
     void list_nomorKamar(){
         try {
             stat = conn.createStatement();
-            res = stat.executeQuery("SELECT nomor_kamar FROM kamar");
+            res = stat.executeQuery("SELECT nomor_kamar FROM kamar WHERE kamar.status IS NULL");
             while (res.next()) {
                 String nomorKamar = res.getString("nomor_kamar");
                 eNomorKamar.addItem(nomorKamar);
@@ -62,7 +65,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void displayData(String nomorKamar) {
         try {
             stat = conn.createStatement();
-            res = stat.executeQuery("SELECT harga FROM kamar WHERE nomor_kamar = '" + nomorKamar + "'");
+            res = stat.executeQuery("SELECT * FROM kamar WHERE nomor_kamar = '" + nomorKamar + "'");
             if (res.next()) {
                 int harga = res.getInt("harga");
                 String tipe = res.getString("tipe");
@@ -75,7 +78,34 @@ public class Dashboard extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+    private void tampil_checkin(){
+        Object[] kolom = {
+            "Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut", "Kasur", "Tipe", "Harga"
+        };
+        model3 = new DefaultTableModel(null, kolom);
+        tbl_checkin.setModel(model3);
+        try {
+          stat = conn.createStatement();
+          res = stat.executeQuery("SELECT * FROM customer");
+          while (res.next()) {
+            Object[] data = {
+              res.getString("nama"),
+              res.getString("nokamar"),
+              res.getString("email"),
+              res.getString("nohp"),
+              res.getString("gender"),
+              res.getString("tgl_checkin"),
+              res.getString("tgl_checkout"),
+              res.getString("kasur"),
+              res.getString("tipe"),
+              res.getString("harga")
+            };
+              model3.addRow(data);
+          }
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -110,19 +140,19 @@ public class Dashboard extends javax.swing.JFrame {
         eTipe = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        eCustomer1 = new javax.swing.JTextField();
+        eNamack = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        eNohp1 = new javax.swing.JTextField();
+        eNohpck = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        eTglHariini1 = new javax.swing.JTextField();
+        eTglchekinck = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tbl_checkin = new javax.swing.JTable();
         jLabel27 = new javax.swing.JLabel();
-        eTglCheckOutx = new javax.swing.JTextField();
-        eCustomer2 = new javax.swing.JTextField();
+        eTglck = new javax.swing.JTextField();
+        eNokamarck = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -250,7 +280,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel18.setText("Kasur");
         jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
 
-        eNomorKamar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Singel", "Double", "Triple" }));
+        eNomorKamar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih" }));
         jPanel6.add(eNomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 260, 40));
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 255));
@@ -299,7 +329,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(0, 255, 0));
         jPanel7.setPreferredSize(new java.awt.Dimension(579, 400));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel7.add(eCustomer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 40));
+        jPanel7.add(eNamack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 40));
 
         jLabel23.setBackground(new java.awt.Color(255, 255, 255));
         jLabel23.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
@@ -312,7 +342,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Nomor HP");
         jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
-        jPanel7.add(eNohp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 250, 40));
+        jPanel7.add(eNohpck, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 250, 40));
 
         jLabel26.setBackground(new java.awt.Color(255, 255, 255));
         jLabel26.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
@@ -320,9 +350,9 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel26.setText("Tanggal Chek In");
         jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
-        eTglHariini1.setEditable(false);
-        eTglHariini1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jPanel7.add(eTglHariini1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 250, 40));
+        eTglchekinck.setEditable(false);
+        eTglchekinck.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel7.add(eTglchekinck, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 250, 40));
 
         jButton9.setText("Clear");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +370,7 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jPanel7.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 120, 40));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_checkin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -351,7 +381,12 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        tbl_checkin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_checkinMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbl_checkin);
 
         jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 560, 130));
 
@@ -361,10 +396,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel27.setText("Tanggal Chek Out");
         jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
-        eTglCheckOutx.setEditable(false);
-        eTglCheckOutx.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jPanel7.add(eTglCheckOutx, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 250, 40));
-        jPanel7.add(eCustomer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
+        eTglck.setEditable(false);
+        eTglck.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jPanel7.add(eTglck, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 250, 40));
+        jPanel7.add(eNokamarck, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 250, 40));
 
         jLabel25.setBackground(new java.awt.Color(255, 255, 255));
         jLabel25.setFont(new java.awt.Font("Helvetica", 1, 14)); // NOI18N
@@ -641,7 +676,7 @@ public class Dashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Form Input Masih Kosong");
         }else{
             try {
-                String query = "INSERT INTO custatomer"
+                String query = "INSERT INTO customer"
                     + "(nama,nohp,email,gender,tgl_checkin,nokamar,kasur,tipe,harga) "
                     + "VALUES (?, ? ,?, ?, ?, ?, ?, ?, ?)";
                 prepared = conn.prepareStatement(query);
@@ -664,8 +699,15 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    void clear_checkout(){
+        eNokamarck.setText("");
+        eNamack.setText("");
+        eNohpck.setText("");
+        eTglchekinck.setText("");
+    }
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
+        clear_checkout();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -862,9 +904,22 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void tbl_checkinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_checkinMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = tbl_checkin.getSelectedRow();
+            TableModel model = tbl_checkin.getModel();
+            eNokamarck.setText(model.getValueAt(row, 0).toString());
+            eNamack.setText(model.getValueAt(row, 1).toString());
+            eNohpck.setText(model.getValueAt(row, 3).toString());
+            eTglchekinck.setText(model.getValueAt(row, 5).toString());
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tbl_checkinMouseClicked
     void update_statatus(String nokamar){
         try {
-                String query = "UPDATE kamar SET statatus = 'Booked' "
+                String query = "UPDATE kamar SET status = 'Booked' "
                     + "WHERE nomor_kamar = " + nokamar;
                 prepared = conn.prepareStatement(query);
                 prepared.executeUpdate();
@@ -917,19 +972,19 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField eAlamatkry;
     private javax.swing.JPasswordField eConfPasskry;
     private javax.swing.JTextField eCustomer;
-    private javax.swing.JTextField eCustomer1;
-    private javax.swing.JTextField eCustomer2;
     private javax.swing.JTextField eEmail;
     private javax.swing.JTextField eHarga;
     private javax.swing.JTextField eKasur;
+    private javax.swing.JTextField eNamack;
     private javax.swing.JTextField eNamakry;
     private javax.swing.JTextField eNohp;
-    private javax.swing.JTextField eNohp1;
+    private javax.swing.JTextField eNohpck;
+    private javax.swing.JTextField eNokamarck;
     private javax.swing.JComboBox<String> eNomorKamar;
     private javax.swing.JPasswordField ePasskry;
-    private javax.swing.JTextField eTglCheckOutx;
     private javax.swing.JTextField eTglHariini;
-    private javax.swing.JTextField eTglHariini1;
+    private javax.swing.JTextField eTglchekinck;
+    private javax.swing.JTextField eTglck;
     private javax.swing.JTextField eTipe;
     private javax.swing.JRadioButton epria;
     private javax.swing.JRadioButton ewanita;
@@ -983,8 +1038,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable tabel_kamar;
     private javax.swing.JTable tabel_kry;
+    private javax.swing.JTable tbl_checkin;
     // End of variables declaration//GEN-END:variables
 }
