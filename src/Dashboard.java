@@ -8,9 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class Dashboard extends javax.swing.JFrame {
@@ -79,7 +86,6 @@ public class Dashboard extends javax.swing.JFrame {
     
     void list_nomorKamar(){
         try {
-            eNomorKamar.removeAllItems();
             stat = conn.createStatement();
             res = stat.executeQuery("SELECT nomor_kamar FROM kamar WHERE status IS NULL");
             while (res.next()) {
@@ -114,13 +120,13 @@ public class Dashboard extends javax.swing.JFrame {
     }
     private void tampil_checkin(){
         Object[] kolom = {
-            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut"
+            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Tanggal CheckIn",
         };
         model3 = new DefaultTableModel(null, kolom);
         tbl_checkin.setModel(model3);
         try {
           stat = conn.createStatement();
-          res = stat.executeQuery("SELECT * FROM customer");
+          res = stat.executeQuery("SELECT * FROM customer where tgl_checkout is null");
           while (res.next()) {
             Object[] data = {
               res.getString("id"),
@@ -128,9 +134,7 @@ public class Dashboard extends javax.swing.JFrame {
               res.getString("nokamar"),
               res.getString("email"),
               res.getString("nohp"),
-              res.getString("gender"),
               res.getString("tgl_checkin"),
-              res.getString("tgl_checkout"),
             };
               model3.addRow(data);
           }
@@ -631,6 +635,11 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 560, 280));
 
         jButton12.setText("Cetak");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 110, 40));
 
         jTabbedPane1.addTab("History Reservasi", jPanel5);
@@ -729,6 +738,8 @@ public class Dashboard extends javax.swing.JFrame {
                 update_statatus(eNomorKamar.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Berhasil Check In");
                 clear();
+                eNomorKamar.removeAllItems();
+                eNomorKamar.addItem("Pilih");
                 list_nomorKamar();
                 tampil_checkin();
                 tampil_kamar();
@@ -776,6 +787,8 @@ public class Dashboard extends javax.swing.JFrame {
                 prepared.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Berhasil Chekout Kamar!");
                 clear_checkout();
+                eNomorKamar.removeAllItems();
+                eNomorKamar.addItem("Pilih");
                 list_nomorKamar();
                 tampil_kamar();
                 tampil_checkin();
@@ -989,6 +1002,19 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_tbl_checkinMouseClicked
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String path = "src/history.jrxml";
+            HashMap hash = new HashMap();
+            JasperReport jrpt = JasperCompileManager.compileReport(path);
+            JasperPrint jprint = JasperFillManager.fillReport(jrpt, hash, conn);
+            JasperViewer.viewReport(jprint, false);
+        } catch (JRException e) {
+            System.out.println("error : " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
     void update_statatus(String nokamar){
         try {
                 String query = "UPDATE kamar SET status = 'Booked' "
