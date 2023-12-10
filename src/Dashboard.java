@@ -25,6 +25,7 @@ public class Dashboard extends javax.swing.JFrame {
     DefaultTableModel model1 = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
     DefaultTableModel model3 = new DefaultTableModel();
+    DefaultTableModel model4 = new DefaultTableModel();
     String id_trans = "0";
     
     public Dashboard() {
@@ -34,6 +35,37 @@ public class Dashboard extends javax.swing.JFrame {
         list_nomorKamar();
         tampil_karyawan();
         tampil_checkin();
+        history();
+    }
+    
+    void history(){
+        Object[] kolom = {
+            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut", "Kasur", "Tipe", "Harga"
+        };
+        model4 = new DefaultTableModel(null, kolom);
+        tbl_history.setModel(model4);
+        try {
+          stat = conn.createStatement();
+          res = stat.executeQuery("SELECT * FROM customer");
+          while (res.next()) {
+            Object[] data = {
+              res.getString("id"),
+              res.getString("nama"),
+              res.getString("nokamar"),
+              res.getString("email"),
+              res.getString("nohp"),
+              res.getString("gender"),
+              res.getString("tgl_checkin"),
+              res.getString("tgl_checkout"),
+              res.getString("kasur"),
+              res.getString("tipe"),
+              res.getString("harga")
+            };
+              model4.addRow(data);
+          }
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     void DateToday(){
@@ -47,6 +79,7 @@ public class Dashboard extends javax.swing.JFrame {
     
     void list_nomorKamar(){
         try {
+            eNomorKamar.removeAllItems();
             stat = conn.createStatement();
             res = stat.executeQuery("SELECT nomor_kamar FROM kamar WHERE status IS NULL");
             while (res.next()) {
@@ -81,7 +114,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     private void tampil_checkin(){
         Object[] kolom = {
-            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut", "Kasur", "Tipe", "Harga"
+            "ID","Nama", "Nomor kamar", "Email", "No Hp", "Gender", "Tanggal CheckIn", "Tanggal CheckOut"
         };
         model3 = new DefaultTableModel(null, kolom);
         tbl_checkin.setModel(model3);
@@ -98,9 +131,6 @@ public class Dashboard extends javax.swing.JFrame {
               res.getString("gender"),
               res.getString("tgl_checkin"),
               res.getString("tgl_checkout"),
-              res.getString("kasur"),
-              res.getString("tipe"),
-              res.getString("harga")
             };
               model3.addRow(data);
           }
@@ -188,7 +218,8 @@ public class Dashboard extends javax.swing.JFrame {
         ePasskry = new javax.swing.JPasswordField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbl_history = new javax.swing.JTable();
+        jButton12 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -584,7 +615,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(102, 0, 102));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_history.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -595,9 +626,12 @@ public class Dashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tbl_history);
 
-        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 580, 300));
+        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 560, 280));
+
+        jButton12.setText("Cetak");
+        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 110, 40));
 
         jTabbedPane1.addTab("History Reservasi", jPanel5);
 
@@ -1029,6 +1063,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1075,9 +1110,9 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable tabel_kamar;
     private javax.swing.JTable tabel_kry;
     private javax.swing.JTable tbl_checkin;
+    private javax.swing.JTable tbl_history;
     // End of variables declaration//GEN-END:variables
 }
